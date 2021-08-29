@@ -1,6 +1,6 @@
 Package: pathwayMultiomics
-Title: The MiniMax Statistic for Multi-Omics Pathway Analysis
-Version: 0.0.0.9000
+Title: Implementinig the MiniMax Statistic for Multi-Omics Pathway Analysis
+Version: 0.0.0.9001
 Authors@R: 
   c(
     person(
