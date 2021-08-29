@@ -1,0 +1,33 @@
+#' Example Medium-Signal Multi-Omics Pathway Results
+#'
+#' @description An example of the input data to the MiniMax statistic with
+#'    medium biological (synthetic) signal
+#'
+#' @details This data represents some results from a simulation study we
+#'    conducted to show the utility of the MiniMax technique. The results in
+#'    this file are from a low-signal scenario (for the treatment group, 40% of
+#'    the centered and scaled genes in the treated gene sets / pathways have
+#'    been "upregulated"--i.e. shocked--by +0.3 standard deviations).
+#'
+#'    For the MiniMax statistic to work, the platform-specific p-values must
+#'    come from a statistical test with well-controlled Type-I error rates.
+#'
+#' @format A tibble (a modern data frame created by the \code{tibble} package)
+#'    with five columns:
+#' \itemize{
+#'    \item{\code{terms}}{ the name of a pathway / gene set; this column is
+#'       called 'terms' for compatibility with \code{pathwayCollection} objects
+#'       from package \code{pathwayPCA}.}
+#'    \item{\code{treated}}{ (FOR SYNTHETIC DATA ONLY) a logical indicator
+#'       marking if the pathway was selected for treatment / synthetic
+#'       disregulation. Obviously, real pathway results would not include such
+#'       a column.}
+#'    \item{\code{pVal_CNV}}{ for copy number variation data, these are the
+#'       p-values for each pathway}
+#'    \item{\code{pVal_RNAseq}}{ for RNAseq expression data, these are the
+#'       p-values for each pathway}
+#'    \item{\code{pVal_Prot}}{ for protein expression data, these are the
+#'       p-values for each pathway}
+#' }
+#'
+"multiOmicsMedSignalResults_df"
