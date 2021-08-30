@@ -1,6 +1,6 @@
 Package: pathwayMultiomics
 Title: Implementinig the MiniMax Statistic for Multi-Omics Pathway Analysis
-Version: 0.0.0.9001
+Version: 0.0.0.9002
 Authors@R: 
   c(
     person(
@@ -25,5 +25,11 @@ Depends:
 Imports:
     stats,
     Rfast
+Suggests: 
+    kableExtra,
+    knitr,
+    rmarkdown,
+    tidyverse
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+VignetteBuilder: knitr
