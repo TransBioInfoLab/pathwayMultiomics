@@ -26,6 +26,11 @@
 #'    \code{"MLE"} (Maximum Likelihood Estimates), or \code{"MoM"} (Method of
 #'    Moments estimates). Using \code{"MLE"} or \code{"MoM"} requires the user
 #'    to provide \code{pValuesNull_df}. See "Details" for more information.
+#' @param annotateResults Should the platforms driving each result be marked?
+#'    Defaults to \code{TRUE}. See \code{\link{MiniMax_calculateDrivers}} for
+#'    more information.
+#' @param ... Additional arguments passed to the \code{MiniMax_calculateDrivers}
+#'    function.
 #'
 #' @details
 #'   \strong{Concerning Parameter Estimation Methods:} We currently support 3
@@ -72,13 +77,17 @@
 #'  MiniMax(
 #'    pValues_df = multiOmicsMedSignalResults_df,
 #'    pValuesNull_df = nullMiniMaxResults_df[, -5],
-#'    method = "MLE"
+#'    method = "MLE",
+#'    # Passed to the MiniMax_calculateDrivers() function
+#'    drivers_char = c("cnv", "rnaSeq", "protein")
 #'  )
 #'
 
 MiniMax <- function(pValues_df, pValuesNull_df = NULL,
                     orderStat = 2L,
-                    method = c("parametric", "MLE", "MoM")){
+                    method = c("parametric", "MLE", "MoM"),
+                    annotateResults = TRUE,
+                    ...){
   # browser()
 
   ###  Check Inputs  ###
@@ -95,7 +104,7 @@ MiniMax <- function(pValues_df, pValuesNull_df = NULL,
   ###  Estimate Beta Parameters  ###
   if(is.null(pValuesNull_df)){
 
-    if(method != "parametric") {
+    if(method %in% c("MLE", "MoM")) {
       warning("This method requires pValuesNull_df. Using parametric estimates.")
     }
     bestParams_ls <- MiniMax_estBetaParams(
@@ -128,17 +137,27 @@ MiniMax <- function(pValues_df, pValuesNull_df = NULL,
 
   ###  Calculate the MiniMax Statistic and p-Value  ###
   # To Do: create an error if these columns already exist
-  pValues_df[["MiniMax"]] <- MiniMax_calculateStatistic(
+  out_df <- pValues_df
+  out_df[["MiniMax"]] <- MiniMax_calculateStatistic(
     res_df = pValues_df[, resCols_lgl, drop = FALSE],
     orderStat = orderStat
   )
-  pValues_df[["MiniMaxP"]] <- MiniMax_calculatePVal(
-    MiniMax_num = pValues_df[["MiniMax"]],
+  out_df[["MiniMaxP"]] <- MiniMax_calculatePVal(
+    MiniMax_num = out_df[["MiniMax"]],
     betaParams_ls = bestParams_ls
   )
 
 
   ###  Return  ###
-  pValues_df[order(pValues_df[["MiniMaxP"]]), ]
+  if (annotateResults) {
+    out_df[["drivers"]] <- MiniMax_calculateDrivers(
+      res_df = pValues_df[, resCols_lgl, drop = FALSE],
+      ...
+    )
+  } else {
+    out_df[["drivers"]] <- NA_character_
+  }
+
+  out_df[order(out_df[["MiniMaxP"]]), ]
 
 }

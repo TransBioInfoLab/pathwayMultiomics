@@ -8,7 +8,9 @@ MiniMax(
   pValues_df,
   pValuesNull_df = NULL,
   orderStat = 2L,
-  method = c("parametric", "MLE", "MoM")
+  method = c("parametric", "MLE", "MoM"),
+  annotateResults = TRUE,
+  ...
 )
 }
 \arguments{
@@ -37,6 +39,13 @@ available, such as in the case of pure meta-analysis approaches),
 \code{"MLE"} (Maximum Likelihood Estimates), or \code{"MoM"} (Method of
 Moments estimates). Using \code{"MLE"} or \code{"MoM"} requires the user
 to provide \code{pValuesNull_df}. See "Details" for more information.}
+
+\item{annotateResults}{Should the platforms driving each result be marked?
+Defaults to \code{TRUE}. See \code{\link{MiniMax_calculateDrivers}} for
+more information.}
+
+\item{...}{Additional arguments passed to the \code{MiniMax_calculateDrivers}
+function.}
 }
 \value{
 A copy of the \code{pValues_df} data frame with two additional
@@ -86,7 +95,9 @@ of interest, we recommend increasing the \code{orderStat} value to 3.
  MiniMax(
    pValues_df = multiOmicsMedSignalResults_df,
    pValuesNull_df = nullMiniMaxResults_df[, -5],
-   method = "MLE"
+   method = "MLE",
+   # Passed to the MiniMax_calculateDrivers() function
+   drivers_char = c("cnv", "rnaSeq", "protein")
  )
 
 }

@@ -17,7 +17,10 @@ knitr::opts_chunk$set(
 )
 ```
 
+
+
 # Introduction and Overview
+
 This vignette will give a brief story about what motivated us to work on this problem, some mathematical details about the method, and walk through some components of an example of how to use it in practice throughout these main sections.
 
 ```{r}
@@ -25,15 +28,17 @@ library(tidyverse)
 library(pathwayMultiomics)
 ```
 
+------------------------------------------------------------------------
 
-*******************************************************************************
 </br>
+
+
 
 # Motivating Example
 Some time ago, our research team was attempting to use some multi-omics tools to answer a few questions concerning breast cancer. While the tools were often well-documented and had nice statistical properties, we consistently ran into one of the following two constraints:
 
-- Multi-Omics tools must match across platforms *by samples*, or
-- Multi-Omics tools must match across platforms *by features*.
+-   Multi-Omics tools must match across platforms *by samples*, or
+-   Multi-Omics tools must match across platforms *by features*.
 
 
 ## Joining Data Platforms
@@ -43,9 +48,10 @@ If, instead, we tried to match on features, we would run into a different set of
 
 
 ## A Pathway-Based Solution
-Rather than using only the intersection of the samples, or only the intersection of the genomic features, we suggest to match across data sets by data summaries of biological pathway activity. For example, consider a set of three data platforms recorded for colorectal adenocarcinoma: copy number variation, DNA methylation, and protein expression. These three data sets may share samples, but that isn't required. Instead of trying to create two differeny many-to-one mappings between regions of the genome and particular proteins, instead, statistically assess the activity of a set of biological pathways in each genomic data layer independently, return a vector of $p$-values corresponding to the pathway collection for each data set, then match the pathway results on these pathways. The resulting summary data would have one row per pathway in the collection, and three columns of $p$-values for each pathway.
+Rather than using only the intersection of the samples, or only the intersection of the genomic features, we suggest to match across data sets by data summaries of biological pathway activity. For example, consider a set of three data platforms recorded for colorectal adenocarcinoma: copy number variation, DNA methylation, and protein expression. These three data sets may share samples, but that isn't required. Instead of trying to create two different many-to-one mappings between regions of the genome and particular proteins, instead, statistically assess the activity of a set of biological pathways in each genomic data layer independently, return a vector of $p$-values corresponding to the pathway collection for each data set, then match the pathway results on these pathways. The resulting summary data would have one row per pathway in the collection, and three columns of $p$-values for each pathway.
 
 In this package, we provide an example of SNP, DNA methylation, and gene expression results for 640 subjects with Alzheimer's disease (from the ROSMAP study) evaluated over the Broad Institute's C2 CP collection. We show the first 10 rows (of the 2833 pathways in the collection with fewer than 200 genes or more than 4 genes):
+
 ```{r, show_data, echo=FALSE, results='asis'}
 alzheimersMultiOmics_df %>% 
 	select(pathway, ends_with("Pval")) %>% 
@@ -54,29 +60,35 @@ alzheimersMultiOmics_df %>%
 	kableExtra::kable()
 ```
 
+------------------------------------------------------------------------
 
-
-*******************************************************************************
 </br>
+
+
 
 # The MiniMax Statistic and its Distribution
 
-## The MiniMax Statistic
-From a systems biology perspective, when we perform a multi-omics analysis, we often care about biological processes which are disregulated across *multiple* layers of the protein transcription process. For example, a moderate cascading effect from DNA methylation upstream through gene expression to protein expression may be of more practical significance than a hyper-disregulated effect in a single layer of the process. The latter scenario will be easily and quickly detected in single-omics analysis, but the former scenario will be missed.
 
-Therefore, the pathway MiniMax statistic is defined to be the **min**imum $p$-value among all pairwise **max**ima for that biological pathway.  Biologically, it indicates if the pathway is disregulated in two or more layers of genomic data. Statistically and mathematically, such a measure is equivalent to requiring that the second smallest $p$-value is significant. That is, we equivalently define the MiniMax to be the second order statistic of the $p$-values.
+## The MiniMax Statistic
+From a systems biology perspective, when we perform a multi-omics analysis, we often care about biological processes which are disregulated across *multiple* layers of the protein transcription process. For example, a moderate cascading effect from DNA methylation upstream through gene expression to protein expression may be of more practical significance than a heavily disregulated effect in a single layer of the process. The latter scenario will be easily and quickly detected in single-omics analysis, but the former scenario will be missed.
+
+Therefore, the pathway MiniMax statistic is defined to be the **min**imum $p$-value among all pairwise **max**ima for that biological pathway. Biologically, it indicates if the pathway is disregulated in two or more layers of genomic data. Statistically and mathematically, such a measure is equivalent to requiring that the second smallest $p$-value is significant. That is, we equivalently define the MiniMax to be the second order statistic of the $p$-values.
 
 
 ## The Distribution of the MiniMax Statistic
-Let us consider the scenario wherein we test that a single pathway is disregulated for a single data platform $g \in 1, 2, \ldots, G$. Under the null hypothesis $H_0$ (that there is no signal within that pathway for genomics data set $g$), the $p$-value of a well-defined statistical test for this question follows a uniform distribution; that is, $p_g \sim U[0,1]$. Further consider $G$ such tests for that pathway, and for the sake of argument, assume that they are independent (a horribly inaccurate assumption to be sure); then under $H_0$, $p_g \overset{i.i.d.}{\sim} U[0,1],\ g = 1, 2, \ldots, G$  It is a known result that the order statistics for such a collection of uniform random variables follows a Beta distribution (denoted $\mathbb{B}(\alpha, \beta)$ herein). Thus,
+Let us consider the scenario wherein we test that a single pathway is disregulated for a single data platform $g \in 1, 2, \ldots, G$. Under the null hypothesis $H_0$ (that there is no signal within that pathway for genomics data set $g$), the $p$-value of a well-defined statistical test for this question follows a uniform distribution; that is, $p_g \sim U[0,1]$. Further consider $G$ such tests for that pathway, and for the sake of argument, assume that they are independent (a horribly inaccurate assumption to be sure); then under $H_0$,
 $$
+p_g \overset{i.i.d.}{\sim} U[0,1],\ g = 1, 2, \ldots, G.
+$$
+It is a known result that the order statistics for such a collection of uniform random variables follows a Beta distribution (denoted $\mathbb{B}(\alpha, \beta)$ herein). Thus, $$
 \text{MiniMax}(p_1, p_2, \ldots, p_G) \equiv p_{[2]} \sim \mathbb{B}(2, G + 1 - 2).
 $$
+
 
 ## Adjusting the Parameters for Dependence Across Data Platforms
 We know that that this assumption of independence will not, and *should* not, hold under real data. We believe that the pathway activity for one layer of genomic data should be related to the activity for that pathway in another genomic data layer. However, we believe that the use of the Beta distribution itself will still be appropriate, but that the parameters need to be adjusted to account for the dependence between $p_1, p_2, \ldots, p_G$.
 
-In order to estimate these Beta distribution parameters, we recommend that you run your single-platform analyses twice: once with the real data, and once with a random permutation of that data (to simulate pathway conditions under $H_0$). Once this has been completed, pass the MiniMax statistcs calculated from platform $p$-values for each pathway to the `MiniMax_estBetaParams()` function. This function has options to use either the Method of Moments or Maximum Likelihood to estimate the parameters of this Beta distribution. If you do not have access to the original data (such as in the case of a meta-analysis), then the only option we offer right now is to use the closed-form definitions of these parameters ($\{\alpha = 2, \beta = G + 1 - 2\}$).
+In order to estimate these Beta distribution parameters, we recommend that you run your single-platform analyses twice: once with the real data, and once with a random permutation of that data (to simulate pathway conditions under $H_0$). Once this has been completed, pass the MiniMax statistcs calculated from platform $p$-values for each pathway under $H_0$ to the `MiniMax_estBetaParams()` function. This function has options to use either the Method of Moments or Maximum Likelihood to estimate the parameters of this Beta distribution. If you do not have access to the original data (such as in the case of a meta-analysis), then the only option we offer right now is to use the closed-form definitions of these parameters ($\{\alpha = 2, \beta = G + 1 - 2\}$).
 
 
 ## Continuing the Alzheimer's Disease Example
@@ -90,7 +102,12 @@ alzheimersMultiOmics_df
 # We accept the default values of the Beta Distribution
 adMiniMax_df <- 
 	alzheimersMultiOmics_df %>% 
+	# The MiniMax() function takes in the gene set name and the three p-value
+	#   columns
 	select(pathway, ends_with("Pval")) %>% 
+	rename(
+		SNP = snpPval, DNAm = dnamPval, RNAseq = rnaseqPval
+	) %>% 
 	MiniMax()
 
 adMiniMax_df
@@ -98,21 +115,26 @@ adMiniMax_df
 
 Finally, we can adjust these pathway $p$-values for multiple comparisons, and filter to those most significant.
 ```{r, adjust_results, results='asis'}
-adMiniMax_df %>% 
+adRes_df <- 
+	adMiniMax_df %>% 
 	mutate(MiniMaxFDR = p.adjust(MiniMaxP, method = "fdr")) %>% 
-	filter(MiniMaxFDR < 0.01) %>% 
-	select(pathway, MiniMaxFDR) %>% 
+	filter(MiniMaxFDR < 0.01) 
+
+adRes_df %>% 
+	select(pathway, MiniMaxFDR, drivers) %>% 
 	kableExtra::kable()
 ```
 
 Many of these pathways have been implicated in Alzheimer's Disease or in neurodegenerative conditions at large.
 
+------------------------------------------------------------------------
 
-*******************************************************************************
 </br>
 
+
+
 # Session Information
+
 ```{r}
 sessionInfo()
 ```
-
