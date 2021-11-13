@@ -3,7 +3,7 @@
 Gabriel J. Odom, Antonio Colaprico, Tiago C. Silva, X. Steven Chen, Lily Wang       
 2021-08-27  
 
-#### For user manuals, please see <https://transbioinfolab.github.io/pathwayMultiomics/>
+#### For user manuals, please see <https://transbioinfolab.github.io/pathwayMultiomics/articles/intro_to_minimax.html>
 
 Recent advances in technology have made multi-omics datasets increasingly available to researchers. To leverage the wealth of information in multi-omics data, a number of integrative analysis strategies have been proposed recently. However, effectively extracting biological insights from these large, complex datasets remains challenging. In particular, matched samples with multiple types of omics data measured on each sample are often required for multi-omics analysis tools, which can significantly reduce the sample size. Another challenge is that analysis techniques such as dimension reductions, which extract association signals in high dimensional datasets by estimating a few variables that explain most of the variations in the samples, are typically applied to whole-genome data, which can be computationally demanding. 
 
