@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pathwayMultiomics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9004</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9006</span>
       </span>
     </div>
 
@@ -76,7 +76,7 @@
 
       
 
-      </header><script src="intro_to_minimax_files/header-attrs-2.10/header-attrs.js"></script><div class="row">
+      </header><script src="intro_to_minimax_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Using the MiniMax Statistic</h1>
@@ -95,7 +95,10 @@
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
 <p>This vignette will give a brief overview of the practical problem that motivated us to work on this project, some mathematical details about our method, and a walkthrough of a real data analysis example.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<p>To install this package, you will need the <code>devtools::</code> package and either <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a> (Windows) or <a href="https://developer.apple.com/xcode/">Xcode</a> (Mac) to build packages from GitHub. Then, install this package via</p>
+<pre><code><a href="https://devtools.r-lib.org/">library(devtools)
+install_github("TransBioInfoLab/pathwayMultiomics")</a></code></pre>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/TransBioInfoLab/pathwayMultiomics">pathwayMultiomics</a></span><span class="op">)</span></code></pre></div>
 <hr>
@@ -311,62 +314,62 @@ p_g \overset{i.i.d.}{\sim} U[0,1],\ g = 1, 2, \ldots, G.
 <h2 class="hasAnchor">
 <a href="#continuing-the-alzheimers-disease-example" class="anchor"></a>Continuing the Alzheimer’s disease example</h2>
 <p>In the data set above, the MiniMax statistics and corresponding <span class="math inline">\(p\)</span>-values are given below. Note that we assume that <span class="math inline">\(\{\alpha = 2, \beta = 2\}\)</span> since the individual omics data <em>p</em>-values for DNA methylation and SNP were based on meta-analyses (we do not have access to the raw data to estimate the parameters as we would like). However, we verified <em>in silico</em> that these fixed values performed reasonably well. Therefore, we can add the statistic and its significance as follows:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">###  The results table  ---</span>
 <span class="va">alzheimersMultiOmics_df</span>
-<span class="co">#&gt; # A tibble: 2,833 × 8</span>
+<span class="co">#&gt; # A tibble: 2,833 x 8</span>
 <span class="co">#&gt;    pathway          size  snpPval   snpFDR dnamPval dnamFDR rnaseqPval rnaseqFDR</span>
 <span class="co">#&gt;    &lt;chr&gt;           &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 BIOCARTA_GRANU…    14 9.67e- 1 9.99e- 1  0.00241   0.359     0.919     0.936 </span>
-<span class="co">#&gt;  2 BIOCARTA_LYM_P…    11 6.79e- 1 9.99e- 1  0.0156    0.538     0.0749    0.158 </span>
-<span class="co">#&gt;  3 BIOCARTA_BLYMP…    12 3.31e-69 1.17e-66  0.138     0.858     0.999     0.999 </span>
-<span class="co">#&gt;  4 BIOCARTA_CARM_…    24 3.30e- 1 9.99e- 1  0.0263    0.643     0.0287    0.0878</span>
-<span class="co">#&gt;  5 BIOCARTA_LAIR_…    17 2.17e- 1 9.99e- 1  0.0463    0.718     0.630     0.700 </span>
-<span class="co">#&gt;  6 BIOCARTA_VDR_P…    24 8.78e- 1 9.99e- 1  0.115     0.840     0.0350    0.0988</span>
-<span class="co">#&gt;  7 BIOCARTA_MTA3_…    18 7.98e- 1 9.99e- 1  0.0494    0.721     0.105     0.197 </span>
-<span class="co">#&gt;  8 BIOCARTA_GABA_…     9 3.71e- 1 9.99e- 1  1         1         0.0280    0.0865</span>
-<span class="co">#&gt;  9 BIOCARTA_EGFR_…    11 6.77e- 1 9.99e- 1  0.0339    0.668     0.118     0.213 </span>
-<span class="co">#&gt; 10 BIOCARTA_MONOC…    10 5.26e- 1 9.99e- 1  0.657     1         0.167     0.268 </span>
-<span class="co">#&gt; # … with 2,823 more rows</span>
+<span class="co">#&gt;  1 BIOCARTA_GRANU~    14 9.67e- 1 9.99e- 1  0.00241   0.359     0.919     0.936 </span>
+<span class="co">#&gt;  2 BIOCARTA_LYM_P~    11 6.79e- 1 9.99e- 1  0.0156    0.538     0.0749    0.158 </span>
+<span class="co">#&gt;  3 BIOCARTA_BLYMP~    12 3.31e-69 1.17e-66  0.138     0.858     0.999     0.999 </span>
+<span class="co">#&gt;  4 BIOCARTA_CARM_~    24 3.30e- 1 9.99e- 1  0.0263    0.643     0.0287    0.0878</span>
+<span class="co">#&gt;  5 BIOCARTA_LAIR_~    17 2.17e- 1 9.99e- 1  0.0463    0.718     0.630     0.700 </span>
+<span class="co">#&gt;  6 BIOCARTA_VDR_P~    24 8.78e- 1 9.99e- 1  0.115     0.840     0.0350    0.0988</span>
+<span class="co">#&gt;  7 BIOCARTA_MTA3_~    18 7.98e- 1 9.99e- 1  0.0494    0.721     0.105     0.197 </span>
+<span class="co">#&gt;  8 BIOCARTA_GABA_~     9 3.71e- 1 9.99e- 1  1         1         0.0280    0.0865</span>
+<span class="co">#&gt;  9 BIOCARTA_EGFR_~    11 6.77e- 1 9.99e- 1  0.0339    0.668     0.118     0.213 </span>
+<span class="co">#&gt; 10 BIOCARTA_MONOC~    10 5.26e- 1 9.99e- 1  0.657     1         0.167     0.268 </span>
+<span class="co">#&gt; # ... with 2,823 more rows</span>
 
 
 <span class="co">###  Pathway Multi-Omics Significance with the MiniMax  ---</span>
 <span class="co"># We accept the default values of the Beta Distribution</span>
 <span class="va">adMiniMax_df</span> <span class="op">&lt;-</span> 
-    <span class="va">alzheimersMultiOmics_df</span> <span class="op">%&gt;%</span> 
+    <span class="va">alzheimersMultiOmics_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
     <span class="co"># The MiniMax() function takes in the gene set name and the three p-value</span>
     <span class="co">#   columns</span>
-    <span class="fu">select</span><span class="op">(</span><span class="va">pathway</span>, <span class="fu">ends_with</span><span class="op">(</span><span class="st">"Pval"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-    <span class="fu">rename</span><span class="op">(</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">pathway</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">ends_with</a></span><span class="op">(</span><span class="st">"Pval"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>
         SNP <span class="op">=</span> <span class="va">snpPval</span>, DNAm <span class="op">=</span> <span class="va">dnamPval</span>, RNAseq <span class="op">=</span> <span class="va">rnaseqPval</span>
-    <span class="op">)</span> <span class="op">%&gt;%</span> 
+    <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
     <span class="fu"><a href="../reference/MiniMax.html">MiniMax</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">adMiniMax_df</span>
-<span class="co">#&gt; # A tibble: 2,833 × 7</span>
+<span class="co">#&gt; # A tibble: 2,833 x 7</span>
 <span class="co">#&gt;    pathway                     SNP     DNAm   RNAseq MiniMax  MiniMaxP drivers  </span>
 <span class="co">#&gt;    &lt;chr&gt;                     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;    </span>
-<span class="co">#&gt;  1 PID_PDGFRB_PATHWAY     6.99e- 1 0.000145  1.67e-4 1.67e-4   8.33e-8 DNAm and…</span>
-<span class="co">#&gt;  2 WP_CHEMOKINE_SIGNALIN… 8.19e- 1 0.000317  1.94e-5 3.17e-4   3.02e-7 DNAm and…</span>
-<span class="co">#&gt;  3 KEGG_HEMATOPOIETIC_CE… 3.67e-36 0.000340  7.61e-1 3.40e-4   3.48e-7 DNAm and…</span>
-<span class="co">#&gt;  4 PID_TCR_PATHWAY        4.48e- 4 0.0275    4.90e-4 4.90e-4   7.20e-7 RNAseq a…</span>
-<span class="co">#&gt;  5 WP_REGULATION_OF_TOLL… 3.76e- 5 0.0332    6.55e-4 6.55e-4   1.29e-6 RNAseq a…</span>
-<span class="co">#&gt;  6 KEGG_CHEMOKINE_SIGNAL… 7.90e- 1 0.000672  2.98e-4 6.72e-4   1.35e-6 DNAm and…</span>
-<span class="co">#&gt;  7 PID_KIT_PATHWAY        2.55e- 1 0.000684  1.10e-4 6.84e-4   1.40e-6 DNAm and…</span>
-<span class="co">#&gt;  8 WP_KIT_RECEPTOR_SIGNA… 3.05e- 2 0.000368  1.41e-3 1.41e-3   5.94e-6 DNAm and…</span>
-<span class="co">#&gt;  9 PID_CXCR4_PATHWAY      4.87e- 4 0.00150   7.29e-2 1.50e-3   6.76e-6 DNAm and…</span>
-<span class="co">#&gt; 10 REACTOME_TCR_SIGNALING 6.06e-52 0.207     2.16e-3 2.16e-3   1.40e-5 RNAseq a…</span>
-<span class="co">#&gt; # … with 2,823 more rows</span></code></pre></div>
+<span class="co">#&gt;  1 PID_PDGFRB_PATHWAY     6.99e- 1 0.000145  1.67e-4 1.67e-4   8.33e-8 DNAm and~</span>
+<span class="co">#&gt;  2 WP_CHEMOKINE_SIGNALIN~ 8.19e- 1 0.000317  1.94e-5 3.17e-4   3.02e-7 DNAm and~</span>
+<span class="co">#&gt;  3 KEGG_HEMATOPOIETIC_CE~ 3.67e-36 0.000340  7.61e-1 3.40e-4   3.48e-7 DNAm and~</span>
+<span class="co">#&gt;  4 PID_TCR_PATHWAY        4.48e- 4 0.0275    4.90e-4 4.90e-4   7.20e-7 RNAseq a~</span>
+<span class="co">#&gt;  5 WP_REGULATION_OF_TOLL~ 3.76e- 5 0.0332    6.55e-4 6.55e-4   1.29e-6 RNAseq a~</span>
+<span class="co">#&gt;  6 KEGG_CHEMOKINE_SIGNAL~ 7.90e- 1 0.000672  2.98e-4 6.72e-4   1.35e-6 DNAm and~</span>
+<span class="co">#&gt;  7 PID_KIT_PATHWAY        2.55e- 1 0.000684  1.10e-4 6.84e-4   1.40e-6 DNAm and~</span>
+<span class="co">#&gt;  8 WP_KIT_RECEPTOR_SIGNA~ 3.05e- 2 0.000368  1.41e-3 1.41e-3   5.94e-6 DNAm and~</span>
+<span class="co">#&gt;  9 PID_CXCR4_PATHWAY      4.87e- 4 0.00150   7.29e-2 1.50e-3   6.76e-6 DNAm and~</span>
+<span class="co">#&gt; 10 REACTOME_TCR_SIGNALING 6.06e-52 0.207     2.16e-3 2.16e-3   1.40e-5 RNAseq a~</span>
+<span class="co">#&gt; # ... with 2,823 more rows</span></code></pre></div>
 <p>Finally, we can adjust these pathway <span class="math inline">\(p\)</span>-values for multiple comparisons and filter to those most significant.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">adRes_df</span> <span class="op">&lt;-</span> 
-    <span class="va">adMiniMax_df</span> <span class="op">%&gt;%</span> 
-    <span class="fu">mutate</span><span class="op">(</span>MiniMaxFDR <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span><span class="op">(</span><span class="va">MiniMaxP</span>, method <span class="op">=</span> <span class="st">"fdr"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-    <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">MiniMaxFDR</span> <span class="op">&lt;</span> <span class="fl">0.01</span><span class="op">)</span> 
+    <span class="va">adMiniMax_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>MiniMaxFDR <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span><span class="op">(</span><span class="va">MiniMaxP</span>, method <span class="op">=</span> <span class="st">"fdr"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">MiniMaxFDR</span> <span class="op">&lt;</span> <span class="fl">0.01</span><span class="op">)</span> 
 
-<span class="va">adRes_df</span> <span class="op">%&gt;%</span> 
-    <span class="fu">select</span><span class="op">(</span><span class="va">pathway</span>, <span class="va">MiniMaxFDR</span>, <span class="va">drivers</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-    <span class="fu">mutate</span><span class="op">(</span>pathway <span class="op">=</span> <span class="fu">str_trunc</span><span class="op">(</span><span class="va">pathway</span>, width <span class="op">=</span> <span class="fl">45</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+<span class="va">adRes_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">pathway</span>, <span class="va">MiniMaxFDR</span>, <span class="va">drivers</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>pathway <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_trunc.html">str_trunc</a></span><span class="op">(</span><span class="va">pathway</span>, width <span class="op">=</span> <span class="fl">45</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
     <span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr>
@@ -611,48 +614,50 @@ RNAseq and SNP
 <div id="session-information" class="section level1">
 <h1 class="hasAnchor">
 <a href="#session-information" class="anchor"></a>Session Information</h1>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; R version 4.1.0 (2021-05-18)</span>
-<span class="co">#&gt; Platform: x86_64-apple-darwin17.0 (64-bit)</span>
-<span class="co">#&gt; Running under: macOS Big Sur 10.16</span>
+<span class="co">#&gt; R version 4.1.1 (2021-08-10)</span>
+<span class="co">#&gt; Platform: x86_64-w64-mingw32/x64 (64-bit)</span>
+<span class="co">#&gt; Running under: Windows 10 x64 (build 19042)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Matrix products: default</span>
-<span class="co">#&gt; BLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.dylib</span>
-<span class="co">#&gt; LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; locale:</span>
-<span class="co">#&gt; [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8</span>
+<span class="co">#&gt; [1] LC_COLLATE=English_United States.1252 </span>
+<span class="co">#&gt; [2] LC_CTYPE=English_United States.1252   </span>
+<span class="co">#&gt; [3] LC_MONETARY=English_United States.1252</span>
+<span class="co">#&gt; [4] LC_NUMERIC=C                          </span>
+<span class="co">#&gt; [5] LC_TIME=English_United States.1252    </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; attached base packages:</span>
 <span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; other attached packages:</span>
-<span class="co">#&gt;  [1] pathwayMultiomics_0.0.0.9004 forcats_0.5.1               </span>
+<span class="co">#&gt;  [1] pathwayMultiomics_0.0.0.9006 forcats_0.5.1               </span>
 <span class="co">#&gt;  [3] stringr_1.4.0                dplyr_1.0.7                 </span>
-<span class="co">#&gt;  [5] purrr_0.3.4                  readr_2.0.0                 </span>
-<span class="co">#&gt;  [7] tidyr_1.1.3                  tibble_3.1.3                </span>
+<span class="co">#&gt;  [5] purrr_0.3.4                  readr_2.0.2                 </span>
+<span class="co">#&gt;  [7] tidyr_1.1.4                  tibble_3.1.5                </span>
 <span class="co">#&gt;  [9] ggplot2_3.3.5                tidyverse_1.3.1             </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; loaded via a namespace (and not attached):</span>
-<span class="co">#&gt;  [1] Rcpp_1.0.7         svglite_2.0.0      lubridate_1.7.10   assertthat_0.2.1  </span>
-<span class="co">#&gt;  [5] rprojroot_2.0.2    digest_0.6.27      utf8_1.2.2         R6_2.5.0          </span>
-<span class="co">#&gt;  [9] cellranger_1.1.0   backports_1.2.1    RcppZiggurat_0.1.6 reprex_2.0.1      </span>
-<span class="co">#&gt; [13] evaluate_0.14      highr_0.9          httr_1.4.2         pillar_1.6.2      </span>
-<span class="co">#&gt; [17] rlang_0.4.11       readxl_1.3.1       rstudioapi_0.13    jquerylib_0.1.4   </span>
-<span class="co">#&gt; [21] rmarkdown_2.10     pkgdown_1.6.1      textshaping_0.3.5  desc_1.3.0        </span>
-<span class="co">#&gt; [25] webshot_0.5.2      munsell_0.5.0      broom_0.7.9        compiler_4.1.0    </span>
-<span class="co">#&gt; [29] modelr_0.1.8       xfun_0.25          pkgconfig_2.0.3    systemfonts_1.0.2 </span>
-<span class="co">#&gt; [33] htmltools_0.5.1.1  tidyselect_1.1.1   viridisLite_0.4.0  fansi_0.5.0       </span>
-<span class="co">#&gt; [37] crayon_1.4.1       tzdb_0.1.2         dbplyr_2.1.1       withr_2.4.2       </span>
-<span class="co">#&gt; [41] grid_4.1.0         jsonlite_1.7.2     gtable_0.3.0       lifecycle_1.0.0   </span>
+<span class="co">#&gt;  [1] Rcpp_1.0.7         svglite_2.0.0      lubridate_1.8.0    assertthat_0.2.1  </span>
+<span class="co">#&gt;  [5] rprojroot_2.0.2    digest_0.6.28      utf8_1.2.2         R6_2.5.1          </span>
+<span class="co">#&gt;  [9] cellranger_1.1.0   backports_1.3.0    RcppZiggurat_0.1.6 reprex_2.0.1      </span>
+<span class="co">#&gt; [13] evaluate_0.14      highr_0.9          httr_1.4.2         pillar_1.6.4      </span>
+<span class="co">#&gt; [17] rlang_0.4.12       readxl_1.3.1       rstudioapi_0.13    jquerylib_0.1.4   </span>
+<span class="co">#&gt; [21] rmarkdown_2.11     pkgdown_1.6.1      textshaping_0.3.6  desc_1.4.0        </span>
+<span class="co">#&gt; [25] webshot_0.5.2      munsell_0.5.0      broom_0.7.10       compiler_4.1.1    </span>
+<span class="co">#&gt; [29] modelr_0.1.8       xfun_0.27          pkgconfig_2.0.3    systemfonts_1.0.3 </span>
+<span class="co">#&gt; [33] htmltools_0.5.2    tidyselect_1.1.1   viridisLite_0.4.0  fansi_0.5.0       </span>
+<span class="co">#&gt; [37] crayon_1.4.2       tzdb_0.2.0         dbplyr_2.1.1       withr_2.4.2       </span>
+<span class="co">#&gt; [41] grid_4.1.1         jsonlite_1.7.2     gtable_0.3.0       lifecycle_1.0.1   </span>
 <span class="co">#&gt; [45] DBI_1.1.1          magrittr_2.0.1     scales_1.1.1       Rfast_2.0.3       </span>
-<span class="co">#&gt; [49] cli_3.0.1          stringi_1.7.3      cachem_1.0.5       fs_1.5.0          </span>
-<span class="co">#&gt; [53] xml2_1.3.2         bslib_0.2.5.1      ellipsis_0.3.2     ragg_1.1.3        </span>
-<span class="co">#&gt; [57] generics_0.1.0     vctrs_0.3.8        kableExtra_1.3.4   tools_4.1.0       </span>
-<span class="co">#&gt; [61] glue_1.4.2         hms_1.1.0          parallel_4.1.0     fastmap_1.1.0     </span>
-<span class="co">#&gt; [65] yaml_2.2.1         colorspace_2.0-2   rvest_1.0.1        memoise_2.0.0     </span>
-<span class="co">#&gt; [69] knitr_1.33         haven_2.4.3        sass_0.4.0</span></code></pre></div>
+<span class="co">#&gt; [49] cli_3.1.0          stringi_1.7.5      cachem_1.0.6       fs_1.5.0          </span>
+<span class="co">#&gt; [53] xml2_1.3.2         bslib_0.3.1        ellipsis_0.3.2     ragg_1.2.0        </span>
+<span class="co">#&gt; [57] generics_0.1.1     vctrs_0.3.8        kableExtra_1.3.4   tools_4.1.1       </span>
+<span class="co">#&gt; [61] glue_1.4.2         hms_1.1.1          parallel_4.1.1     fastmap_1.1.0     </span>
+<span class="co">#&gt; [65] yaml_2.2.1         colorspace_2.0-2   rvest_1.0.2        memoise_2.0.0     </span>
+<span class="co">#&gt; [69] knitr_1.36         haven_2.4.3        sass_0.4.0</span></code></pre></div>
 </div>
   </div>
 

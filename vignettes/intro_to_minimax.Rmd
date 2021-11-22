@@ -23,6 +23,13 @@ knitr::opts_chunk$set(
 
 This vignette will give a brief overview of the practical problem that motivated us to work on this project, some mathematical details about our method, and a walkthrough of a real data analysis example.
 
+To install this package, you will need the `devtools::` package and either [Rtools](https://cran.r-project.org/bin/windows/Rtools/) (Windows) or [Xcode](https://developer.apple.com/xcode/) (Mac) to build packages from GitHub. Then, install this package via
+
+```
+library(devtools)
+install_github("TransBioInfoLab/pathwayMultiomics")
+```
+
 ```{r}
 library(tidyverse)
 library(pathwayMultiomics)

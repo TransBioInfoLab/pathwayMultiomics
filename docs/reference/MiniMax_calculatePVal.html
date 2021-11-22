@@ -74,7 +74,7 @@ p-values." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pathwayMultiomics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9004</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9006</span>
       </span>
     </div>
 
@@ -156,34 +156,35 @@ function.</p></td>
 corresponding to the supplied MiniMax statistics.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>  <span class='co'># Find the best-fitting paramters based on the MiniMax statistic values</span>
-  <span class='co'>#   under the null distribution</span>
-  <span class='va'>mmBetaParams_ls</span> <span class='op'>&lt;-</span> <span class='fu'><a href='MiniMax_estBetaParams.html'>MiniMax_estBetaParams</a></span><span class='op'>(</span>
-    MiniMaxNull_num <span class='op'>=</span> <span class='va'>nullMiniMaxResults_df</span><span class='op'>$</span><span class='va'>MiniMax</span>,
-    nPlatforms <span class='op'>=</span> <span class='fl'>3L</span>,
-    method <span class='op'>=</span> <span class='st'>"MoM"</span>
-  <span class='op'>)</span>
-
-  <span class='co'># Calculate the MiniMax Statistics for each gene set</span>
-  <span class='va'>mmVals_num</span> <span class='op'>&lt;-</span> <span class='fu'><a href='MiniMax_calculateStatistic.html'>MiniMax_calculateStatistic</a></span><span class='op'>(</span>
-    res_df <span class='op'>=</span> <span class='va'>multiOmicsHighSignalResults_df</span><span class='op'>[</span>, <span class='op'>-</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>]</span>
-  <span class='op'>)</span>
-
-  <span class='co'># Find the p-values corresponding to these statistics</span>
-  <span class='fu'>MiniMax_calculatePVal</span><span class='op'>(</span>
-    MiniMax_num <span class='op'>=</span> <span class='va'>mmVals_num</span>,
-    betaParams_ls <span class='op'>=</span> <span class='va'>mmBetaParams_ls</span>
- <span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] 0.869147528 0.807798221 0.803079930 0.000000000 0.000000000 0.791104570
-#&gt;  [7] 0.792313454 0.277915596 0.209891314 0.418006467 0.166657048 0.813636893
-#&gt; [13] 0.603610941 0.622411577 0.589034086 0.000000000 0.495652257 0.787463052
-#&gt; [19] 0.000000000 0.340193221 0.658007473 0.835202498 0.500135449 0.003932541
-#&gt; [25] 0.740822483 0.035610849 0.370750199 0.868134428 0.506110402 0.546307283
-#&gt; [31] 0.485186804 0.003029706 0.835202498 0.559629336 0.149160531 0.568482095
-#&gt; [37] 0.202257943 0.264177302 0.829624954 0.046588286 0.610863048 0.400207449
-#&gt; [43] 0.261451013 0.966033682 0.132352449 0.561106480 0.878120998 0.702261740
-#&gt; [49] 0.074753792 0.000000000</div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'>  <span class='co'># Find the best-fitting paramters based on the MiniMax statistic values</span></span>
+<span class='r-in'>  <span class='co'>#   under the null distribution</span></span>
+<span class='r-in'>  <span class='va'>mmBetaParams_ls</span> <span class='op'>&lt;-</span> <span class='fu'><a href='MiniMax_estBetaParams.html'>MiniMax_estBetaParams</a></span><span class='op'>(</span></span>
+<span class='r-in'>    MiniMaxNull_num <span class='op'>=</span> <span class='va'>nullMiniMaxResults_df</span><span class='op'>$</span><span class='va'>MiniMax</span>,</span>
+<span class='r-in'>    nPlatforms <span class='op'>=</span> <span class='fl'>3L</span>,</span>
+<span class='r-in'>    method <span class='op'>=</span> <span class='st'>"MoM"</span></span>
+<span class='r-in'>  <span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'>  <span class='co'># Calculate the MiniMax Statistics for each gene set</span></span>
+<span class='r-in'>  <span class='va'>mmVals_num</span> <span class='op'>&lt;-</span> <span class='fu'><a href='MiniMax_calculateStatistic.html'>MiniMax_calculateStatistic</a></span><span class='op'>(</span></span>
+<span class='r-in'>    res_df <span class='op'>=</span> <span class='va'>multiOmicsHighSignalResults_df</span><span class='op'>[</span>, <span class='op'>-</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>]</span></span>
+<span class='r-in'>  <span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'>  <span class='co'># Find the p-values corresponding to these statistics</span></span>
+<span class='r-in'>  <span class='fu'>MiniMax_calculatePVal</span><span class='op'>(</span></span>
+<span class='r-in'>    MiniMax_num <span class='op'>=</span> <span class='va'>mmVals_num</span>,</span>
+<span class='r-in'>    betaParams_ls <span class='op'>=</span> <span class='va'>mmBetaParams_ls</span></span>
+<span class='r-in'> <span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] 0.869147528 0.807798221 0.803079930 0.000000000 0.000000000 0.791104570</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7] 0.792313454 0.277915596 0.209891314 0.418006467 0.166657048 0.813636893</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13] 0.603610941 0.622411577 0.589034086 0.000000000 0.495652257 0.787463052</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [19] 0.000000000 0.340193221 0.658007473 0.835202498 0.500135449 0.003932541</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [25] 0.740822483 0.035610849 0.370750199 0.868134428 0.506110402 0.546307283</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [31] 0.485186804 0.003029706 0.835202498 0.559629336 0.149160531 0.568482095</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [37] 0.202257943 0.264177302 0.829624954 0.046588286 0.610863048 0.400207449</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [43] 0.261451013 0.966033682 0.132352449 0.561106480 0.878120998 0.702261740</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [49] 0.074753792 0.000000000</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

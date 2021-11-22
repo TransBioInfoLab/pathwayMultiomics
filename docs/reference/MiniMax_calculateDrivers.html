@@ -73,7 +73,7 @@ of the multi-omics platforms are driving the MiniMax statistic." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pathwayMultiomics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9004</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9006</span>
       </span>
     </div>
 
@@ -201,28 +201,29 @@ not statistically significant for that pathway. Therefore, we recommend
 that this function be used only for interpretation of results post-hoc.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>  <span class='fu'>MiniMax_calculateDrivers</span><span class='op'>(</span>
-    <span class='va'>multiOmicsHighSignalResults_df</span><span class='op'>[</span>, <span class='op'>-</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>]</span>,
-    drivers_char <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cnv"</span>, <span class='st'>"rnaSeq"</span>, <span class='st'>"protein"</span><span class='op'>)</span>
- <span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] "cnv and protein"    "protein and rnaSeq" "protein and rnaSeq"
-#&gt;  [4] "cnv and rnaSeq"     "cnv and rnaSeq"     "cnv and protein"   
-#&gt;  [7] "protein and rnaSeq" "protein and rnaSeq" "cnv and rnaSeq"    
-#&gt; [10] "cnv and rnaSeq"     "cnv and rnaSeq"     "protein and rnaSeq"
-#&gt; [13] "cnv and rnaSeq"     "cnv and rnaSeq"     "cnv and protein"   
-#&gt; [16] "cnv and rnaSeq"     "protein and rnaSeq" "protein and rnaSeq"
-#&gt; [19] "cnv and rnaSeq"     "cnv and protein"    "protein and rnaSeq"
-#&gt; [22] "cnv and rnaSeq"     "cnv and rnaSeq"     "cnv and rnaSeq"    
-#&gt; [25] "cnv and protein"    "cnv and rnaSeq"     "cnv and protein"   
-#&gt; [28] "cnv and protein"    "cnv and protein"    "cnv and protein"   
-#&gt; [31] "cnv and rnaSeq"     "cnv and rnaSeq"     "protein and rnaSeq"
-#&gt; [34] "cnv and protein"    "cnv and rnaSeq"     "protein and rnaSeq"
-#&gt; [37] "cnv and rnaSeq"     "protein and rnaSeq" "cnv and protein"   
-#&gt; [40] "cnv and rnaSeq"     "cnv and protein"    "cnv and protein"   
-#&gt; [43] "protein and rnaSeq" "cnv and protein"    "cnv and rnaSeq"    
-#&gt; [46] "cnv and rnaSeq"     "cnv and protein"    "cnv and protein"   
-#&gt; [49] "protein and rnaSeq" "cnv and rnaSeq"    </div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'>  <span class='fu'>MiniMax_calculateDrivers</span><span class='op'>(</span></span>
+<span class='r-in'>    <span class='va'>multiOmicsHighSignalResults_df</span><span class='op'>[</span>, <span class='op'>-</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>]</span>,</span>
+<span class='r-in'>    drivers_char <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cnv"</span>, <span class='st'>"rnaSeq"</span>, <span class='st'>"protein"</span><span class='op'>)</span></span>
+<span class='r-in'> <span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] "cnv and protein"    "protein and rnaSeq" "protein and rnaSeq"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4] "cnv and rnaSeq"     "cnv and rnaSeq"     "cnv and protein"   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7] "protein and rnaSeq" "protein and rnaSeq" "cnv and rnaSeq"    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10] "cnv and rnaSeq"     "cnv and rnaSeq"     "protein and rnaSeq"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13] "cnv and rnaSeq"     "cnv and rnaSeq"     "cnv and protein"   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16] "cnv and rnaSeq"     "protein and rnaSeq" "protein and rnaSeq"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [19] "cnv and rnaSeq"     "cnv and protein"    "protein and rnaSeq"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [22] "cnv and rnaSeq"     "cnv and rnaSeq"     "cnv and rnaSeq"    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [25] "cnv and protein"    "cnv and rnaSeq"     "cnv and protein"   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [28] "cnv and protein"    "cnv and protein"    "cnv and protein"   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [31] "cnv and rnaSeq"     "cnv and rnaSeq"     "protein and rnaSeq"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [34] "cnv and protein"    "cnv and rnaSeq"     "protein and rnaSeq"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [37] "cnv and rnaSeq"     "protein and rnaSeq" "cnv and protein"   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [40] "cnv and rnaSeq"     "cnv and protein"    "cnv and protein"   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [43] "protein and rnaSeq" "cnv and protein"    "cnv and rnaSeq"    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [46] "cnv and rnaSeq"     "cnv and protein"    "cnv and protein"   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [49] "protein and rnaSeq" "cnv and rnaSeq"    </span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

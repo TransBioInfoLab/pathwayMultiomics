@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">pathwayMultiomics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9004</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9006</span>
       </span>
     </div>
 
@@ -78,12 +78,21 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="pathwaymultiomics" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#pathwaymultiomics" class="anchor"></a>pathwayMultiomics</h1></div>
-<p>An R Package to Implement the Pathway-Based MiniMax Statistic for Multi-Omics Analysis<br>
-Gabriel Odom and Lily Wang<br>
+<div id="pathwaymultiomics-an-r-package-for-efficient-integrative-analysis-of-multi-omics-datasets-with-matched-or-un-matched-samples" class="section level3">
+<h3 class="hasAnchor">
+<a href="#pathwaymultiomics-an-r-package-for-efficient-integrative-analysis-of-multi-omics-datasets-with-matched-or-un-matched-samples" class="anchor"></a>pathwayMultiomics: An R package for efficient integrative analysis of multi-omics datasets with matched or un-matched samples</h3>
+<p>Gabriel J. Odom, Antonio Colaprico, Tiago C. Silva, X. Steven Chen, Lily Wang<br>
 2021-08-27</p>
+<div id="for-user-manuals-please-see-httpstransbioinfolabgithubiopathwaymultiomicsarticlesintro_to_minimaxhtml" class="section level4">
+<h4 class="hasAnchor">
+<a href="#for-user-manuals-please-see-httpstransbioinfolabgithubiopathwaymultiomicsarticlesintro_to_minimaxhtml" class="anchor"></a>For user manuals, please see <a href="https://transbioinfolab.github.io/pathwayMultiomics/articles/intro_to_minimax.html" class="uri">https://transbioinfolab.github.io/pathwayMultiomics/articles/intro_to_minimax.html</a>
+</h4>
+<p>Recent advances in technology have made multi-omics datasets increasingly available to researchers. To leverage the wealth of information in multi-omics data, a number of integrative analysis strategies have been proposed recently. However, effectively extracting biological insights from these large, complex datasets remains challenging. In particular, matched samples with multiple types of omics data measured on each sample are often required for multi-omics analysis tools, which can significantly reduce the sample size. Another challenge is that analysis techniques such as dimension reductions, which extract association signals in high dimensional datasets by estimating a few variables that explain most of the variations in the samples, are typically applied to whole-genome data, which can be computationally demanding.</p>
+<p>Here we present pathwayMultiomics, a pathway-based approach for integrative analysis of multi-omics data with categorical, continuous, or survival outcome variables. The input of pathwayMultiomics is pathway P-values for individual omics data types, which are then integrated using a novel statistic, the MiniMax statistic, to prioritize pathways dysregulated in multiple types of omics datasets. Importantly, pathwayMultiomics is computationally efficient and does not require matched samples in multi-omics data. We performed a comprehensive simulation study to show that pathwayMultiomics significantly outperformed currently available multi-omics tools with improved power and well-controlled false-positive rates. In addition, we also analyzed real multi-omics datasets to show that pathwayMultiomics was able to recover known biology by nominating biologically meaningful pathways in complex diseases such as Alzheimer’s disease.</p>
+<p>To install this package, you will need the <code>devtools::</code> package and either <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a> (Windows) or <a href="https://developer.apple.com/xcode/">Xcode</a> (Mac) to build packages from GitHub. Then, install this package via</p>
+<pre><code><a href="https://devtools.r-lib.org/">library(devtools)
+install_github("TransBioInfoLab/pathwayMultiomics")</a></code></pre>
+</div>
 </div>
   </div>
 

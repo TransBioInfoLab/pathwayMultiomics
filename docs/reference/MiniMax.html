@@ -74,7 +74,7 @@ significance to concordant or cascading pathway-level biological effects." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pathwayMultiomics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9004</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9006</span>
       </span>
     </div>
 
@@ -228,31 +228,32 @@ situations where more than 5 data platforms are available for the disease
 of interest, we recommend increasing the <code>orderStat</code> value to 3.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'> <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"multiOmicsMedSignalResults_df"</span><span class='op'>)</span>
- <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"nullMiniMaxResults_df"</span><span class='op'>)</span>
-
- <span class='fu'>MiniMax</span><span class='op'>(</span>
-   pValues_df <span class='op'>=</span> <span class='va'>multiOmicsMedSignalResults_df</span>,
-   pValuesNull_df <span class='op'>=</span> <span class='va'>nullMiniMaxResults_df</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>5</span><span class='op'>]</span>,
-   method <span class='op'>=</span> <span class='st'>"MLE"</span>,
-   <span class='co'># Passed to the MiniMax_calculateDrivers() function</span>
-   drivers_char <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cnv"</span>, <span class='st'>"rnaSeq"</span>, <span class='st'>"protein"</span><span class='op'>)</span>
- <span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 50 × 8</span>
-#&gt;    terms     treated pVal_CNV pVal_RNAseq pVal_Prot MiniMax MiniMaxP drivers    
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      
-#&gt; <span style='color: #BCBCBC;'> 1</span> cluster05 TRUE       0.213       0.007     0.012   0.012  0.001<span style='text-decoration: underline;'>05</span> protein an…
-#&gt; <span style='color: #BCBCBC;'> 2</span> cluster24 FALSE      0.03        0.016     0.669   0.03   0.005<span style='text-decoration: underline;'>32</span> cnv and rn…
-#&gt; <span style='color: #BCBCBC;'> 3</span> cluster32 FALSE      0.03        0.037     0.661   0.037  0.007<span style='text-decoration: underline;'>71</span> cnv and rn…
-#&gt; <span style='color: #BCBCBC;'> 4</span> cluster19 TRUE       0.18        0.004     0.044   0.044  0.010<span style='text-decoration: underline;'>5</span>  protein an…
-#&gt; <span style='color: #BCBCBC;'> 5</span> cluster40 FALSE      0.103       0.102     0.515   0.103  0.045<span style='text-decoration: underline;'>9</span>  cnv and rn…
-#&gt; <span style='color: #BCBCBC;'> 6</span> cluster26 FALSE      0.115       0.019     0.754   0.115  0.055<span style='text-decoration: underline;'>4</span>  cnv and rn…
-#&gt; <span style='color: #BCBCBC;'> 7</span> cluster49 FALSE      0.595       0.127     0.158   0.158  0.094<span style='text-decoration: underline;'>7</span>  protein an…
-#&gt; <span style='color: #BCBCBC;'> 8</span> cluster35 FALSE      0.034       0.201     0.688   0.201  0.141   cnv and rn…
-#&gt; <span style='color: #BCBCBC;'> 9</span> cluster45 FALSE      0.094       0.23      0.249   0.23   0.175   cnv and rn…
-#&gt; <span style='color: #BCBCBC;'>10</span> cluster11 FALSE      0.247       0.159     0.473   0.247  0.197   cnv and rn…
-#&gt; <span style='color: #949494;'># … with 40 more rows</span></div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'> <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"multiOmicsMedSignalResults_df"</span><span class='op'>)</span></span>
+<span class='r-in'> <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"nullMiniMaxResults_df"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'> <span class='fu'>MiniMax</span><span class='op'>(</span></span>
+<span class='r-in'>   pValues_df <span class='op'>=</span> <span class='va'>multiOmicsMedSignalResults_df</span>,</span>
+<span class='r-in'>   pValuesNull_df <span class='op'>=</span> <span class='va'>nullMiniMaxResults_df</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>5</span><span class='op'>]</span>,</span>
+<span class='r-in'>   method <span class='op'>=</span> <span class='st'>"MLE"</span>,</span>
+<span class='r-in'>   <span class='co'># Passed to the MiniMax_calculateDrivers() function</span></span>
+<span class='r-in'>   drivers_char <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cnv"</span>, <span class='st'>"rnaSeq"</span>, <span class='st'>"protein"</span><span class='op'>)</span></span>
+<span class='r-in'> <span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 50 x 8</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    terms     treated pVal_CNV pVal_RNAseq pVal_Prot MiniMax MiniMaxP drivers    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span> cluster05 TRUE       0.213       0.007     0.012   0.012  0.001<span style='text-decoration: underline;'>05</span> protein an~</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span> cluster24 FALSE      0.03        0.016     0.669   0.03   0.005<span style='text-decoration: underline;'>32</span> cnv and rn~</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span> cluster32 FALSE      0.03        0.037     0.661   0.037  0.007<span style='text-decoration: underline;'>71</span> cnv and rn~</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span> cluster19 TRUE       0.18        0.004     0.044   0.044  0.010<span style='text-decoration: underline;'>5</span>  protein an~</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span> cluster40 FALSE      0.103       0.102     0.515   0.103  0.045<span style='text-decoration: underline;'>9</span>  cnv and rn~</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span> cluster26 FALSE      0.115       0.019     0.754   0.115  0.055<span style='text-decoration: underline;'>4</span>  cnv and rn~</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span> cluster49 FALSE      0.595       0.127     0.158   0.158  0.094<span style='text-decoration: underline;'>7</span>  protein an~</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span> cluster35 FALSE      0.034       0.201     0.688   0.201  0.141   cnv and rn~</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span> cluster45 FALSE      0.094       0.23      0.249   0.23   0.175   cnv and rn~</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span> cluster11 FALSE      0.247       0.159     0.473   0.247  0.197   cnv and rn~</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># ... with 40 more rows</span></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
